@@ -14,8 +14,9 @@ folders = ['./192_screenshots',
            './195_screenshots', 
            './198_screenshots']
 
-# Define the interval between capturing each screenshot (in seconds)s
-interval = 60
+# Define the interval between capturing each screenshot (in seconds)s.
+# Set 3600 sec equivalent to 1 hour.
+interval = 3600
 
 with sync_playwright() as playwright:
 
