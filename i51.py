@@ -40,7 +40,7 @@ with sync_playwright() as playwright:
                     div.textContent = `{timestamp} - {url}`;
                     document.body.appendChild(div);
                 """)
-                page.screenshot(path=f"{folder}/{filename}")
+                page.screenshot(path=f"{folder}/{filename}", full_page=True)
                 
             time.sleep(interval)
 
