@@ -9,11 +9,11 @@ urls = ['https://www.google.com', 'https://www.facebook.com', 'https://www.twitt
 folders = ['./google_screenshots', './facebook_screenshots', './twitter_screenshots']
 
 # Define the interval between capturing each screenshot (in seconds)s
-interval = 2
+interval = 60
 
 with sync_playwright() as playwright:
 
-    counter = 1
+    counter = 10
     browser = playwright.firefox.launch(headless=True)
 
     while True:
