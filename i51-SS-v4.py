@@ -8,7 +8,7 @@ urls = ['https://www.google.com', 'https://www.facebook.com', 'https://www.twitt
 
 folders = ['./google_screenshots', './facebook_screenshots', './twitter_screenshots']
 
-# Define the interval between capturing each screenshot (in seconds)
+# Define the interval between capturing each screenshot (in seconds)s
 interval = 2
 
 with sync_playwright() as playwright:
