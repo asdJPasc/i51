@@ -12,5 +12,5 @@ you can capture, organize, and customize your screenshots.
 
 
 
-*NOTE to run this script you have to install python and pip to your pc. Google it on how to install those. once installed type "pip install playwright" and run the script.
+*NOTE to run this script you have to install python and pip to your pc. Google it on how to install those. once installed type "pip install playwright" and run the script open cmd type "python i51.py".
 
