@@ -4,9 +4,15 @@ import os
 from datetime import date
 from datetime import datetime
 
-urls = ['https://www.google.com', 'https://www.facebook.com', 'https://www.twitter.com']
+#list all web links separated with comma
+urls = ['https://www.federalregister.gov/documents/current', 
+        'https://www.consumerfinance.gov/enforcement/actions/?title=&statuses=post-order-post-judgment&from_date=2023-01-01&to_date=2023-12-31', 
+        'https://www.cftc.gov/LawRegulation/CFTCStaffLetters/letters.htm?title=&field_csl_letter_year_value=2023']
 
-folders = ['./google_screenshots', './facebook_screenshots', './twitter_screenshots']
+#list all folder name
+folders = ['./192_screenshots', 
+           './195_screenshots', 
+           './198_screenshots']
 
 # Define the interval between capturing each screenshot (in seconds)s
 interval = 60
@@ -26,9 +32,9 @@ with sync_playwright() as playwright:
                 page = browser.new_page()
                 page.goto(url)
                 page.wait_for_load_state()
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                timestamp = datetime.now().strftime("Date: %m-%d-%Y || Time: %I:%M:%S %p")
                 page.evaluate(f"""
-                    const timestamp = new Date().toLocaleString();
+                    const timestamp = new Date().toLocaleString('en-US', {{ hour12: true }});
                     const url = document.URL;
                     const div = document.createElement('div');
                     div.style.position = 'absolute';
@@ -36,8 +42,11 @@ with sync_playwright() as playwright:
                     div.style.left = '0';
                     div.style.backgroundColor = 'white';
                     div.style.padding = '5px';
+                    div.style.width = '100%';
+                    div.style.fontWeight = 'bold';
+                    div.style.height = 'auto';
                     div.style.zIndex = '9999';
-                    div.textContent = `{timestamp} - {url}`;
+                    div.textContent = `{timestamp} || {url}`;
                     document.body.appendChild(div);
                 """)
                 page.screenshot(path=f"{folder}/{filename}", full_page=True)
