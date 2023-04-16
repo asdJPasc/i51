@@ -28,7 +28,7 @@ folders = ['191_screenshots',
 
 # Define the interval between capturing each screenshot (in seconds)s.
 # Set 3600 sec equivalent to 1 hour.
-interval = 3600
+interval = 3
 
 print(r"""
 
@@ -52,6 +52,9 @@ def accept_cookies(page):
             accept_button.click()
     except Exception as e:
         print(e)
+
+# Create a log file
+log_file = open("log.txt", "a")        
 
 with sync_playwright() as playwright:
 
@@ -92,6 +95,7 @@ with sync_playwright() as playwright:
                 """)
                 page.screenshot(path=f"{folder}/{filename}", full_page=True)
                 print(f"Done capturing screenshot of {names[i]} at {consoleTimestamp}.\n")
+                log_file.write(f"Done capturing screenshot of {names[i]} at {timestamp}.\n")
             time.sleep(interval)
             
         except KeyboardInterrupt:
