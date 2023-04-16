@@ -13,15 +13,18 @@ os.system('color 0A')
 
 #list all web links separated with comma
 urls = ['https://www.congress.gov/search?searchResultViewType=expanded&pageSort=latestAction:desc&q={%22source%22:%22legislation%22,%22type%22:%22bills%22,%22bill-status%22:%22law%22}&pageSize=25', 
-        'https://www.cftc.gov/LawRegulation/CFTCStaffLetters/letters.htm?title=&field_csl_letter_year_value=2023']
+        'https://www.cftc.gov/LawRegulation/CFTCStaffLetters/letters.htm?title=&field_csl_letter_year_value=2023'
+       ]
 
 #list all simplified names
 names = ['Row id: 191',
-         'Row id: 198']
+         'Row id: 198'
+        ]
 
 #list all folder name
 folders = ['191_screenshots', 
-           '192_screenshots']
+           '198_screenshots'
+          ]
 
 # Define the interval between capturing each screenshot (in seconds)s.
 # Set 3600 sec equivalent to 1 hour.
