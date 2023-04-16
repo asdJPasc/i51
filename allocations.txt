@@ -1,0 +1,21 @@
+#list all web links separated with comma
+urls = ['https://www.congress.gov/search?searchResultViewType=expanded&pageSort=latestAction:desc&q={%22source%22:%22legislation%22,%22type%22:%22bills%22,%22bill-status%22:%22law%22}&pageSize=25', 
+        'https://www.federalregister.gov/documents/current', 
+        'https://www.consumerfinance.gov/enforcement/actions/?title=&statuses=post-order-post-judgment&from_date=2023-01-01&to_date=2023-12-31',
+        'https://www.cftc.gov/LawRegulation/CFTCStaffLetters/letters.htm?title=&field_csl_letter_year_value=2023',
+        'https://webproxy.to/browse.php?u=https%3A%2F%2Fdof.gob.mx%2F&b=20&f=norefer',
+        'https://www.bcb.gov.br/estabilidadefinanceira/buscanormas?dataInicioBusca=25%2F03%2F2023&dataFimBusca=31%2F12%2F2023&tipoDocumento=Resolu%C3%A7%C3%A3o%20BCB',
+        'https://www.bcb.gov.br/estabilidadefinanceira/buscanormas?dataInicioBusca=25%2F03%2F2023&dataFimBusca=31%2F12%2F2023&tipoDocumento=Resolu%C3%A7%C3%A3o%20Conjunta',
+        'http://www4.planalto.gov.br/legislacao/portal-legis/resenha-diaria/2023-resenha-diaria/marco-resenha-diaria',
+        'https://www.bcb.gov.br/estabilidadefinanceira/buscanormas?dataInicioBusca=01%2F01%2F2023&dataFimBusca=31%2F12%2F2023&tipoDocumento=Resolu%C3%A7%C3%A3o%20CMN']
+
+#list all folder name
+folders = ['191_screenshots', 
+           '192_screenshots', 
+           '195_screenshots',
+           '198_screenshot',
+           '890_screenshot',
+           '951-bcb_screenshot',
+           '951-conjunta_screenshot',
+           '960_screenshot',
+           '961_screenshot',]
