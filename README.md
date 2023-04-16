@@ -1,15 +1,12 @@
 # I51 script
 
-Powerful screenshot script designed by i51 packed with features to help you capture and organize your screen grabs.
+Powerful script offers a comprehensive range of features to make screen capturing of websites effortless. 
 
-you can take full height screen captures with ease, ensuring that you capture every detail on the page. You can schedule screenshots at regular intervals, making it easy to track changes to websites or monitor social media activity.
+With the script, you can capture the full height of any website, including the date, time, and row id at the top of each screenshot. 
 
-this script also includes a timestamp at the top of every screenshot, making it easy to track when the capture was taken. And with automatic folder creation, you can be sure that every website you capture is stored in its own folder, making organization a breeze.
+The script also enables automatic folder creation for every screenshot and supports both automatic file naming and customization options, ensuring that your files are organized and personalized to your preferences. 
 
-also includes automatic file naming, so you can quickly find the screenshots you need. And if you prefer a customized file name, you can easily change it to suit your needs.
-you can capture, organize, and customize your screenshots.
-
-
+Moreover, you can easily set intervals for screen captures, streamlining your workflow and maximizing your efficiency. The script also includes an automatic cookie acceptance feature, ensuring that your screenshots remain uncluttered with extraneous elements. Additionally, the script generates a text file for logs to track screen captures.
 
 
 *NOTE: Please be aware that using the script is at your own risk and the creator of the script is not liable for any damages that may result from using it.
