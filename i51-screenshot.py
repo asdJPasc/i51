@@ -40,7 +40,7 @@ print(r"""
                                                            \ \_\       
                                                             \/_/       
 """)
-time.sleep(3)
+time.sleep(4)
 
 def accept_cookies(page):
     try:
