@@ -1,6 +1,6 @@
 # I51 script
 
-Powerful script offers a comprehensive range of features to make screen capturing of websites effortless. 
+Powerful screenshot script designed by i51 packed with features to make screen capturing of websites effortless. 
 
 With the script, you can capture the full height of any website, including the date, time, and row id at the top of each screenshot. 
 
