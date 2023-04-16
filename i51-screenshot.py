@@ -28,7 +28,7 @@ folders = ['191_screenshots',
 
 # Define the interval between capturing each screenshot (in seconds)s.
 # Set 3600 sec equivalent to 1 hour.
-interval = 8
+interval = 3600
 
 print(r"""
 
