@@ -1,4 +1,5 @@
 from playwright.sync_api import Playwright, sync_playwright
+<<<<<<< HEAD
 from playwright._impl._api_types import TimeoutError
 import time
 import os
@@ -107,6 +108,42 @@ interval = 1800
 
 print(rf"""
 
+=======
+import time
+import os
+import subprocess
+from datetime import date
+from datetime import datetime
+from colorama import init, Fore, Style
+init()
+
+
+subprocess.call('mode con: cols=100 lines=10', shell=True)
+os.system('color 0A')
+
+#list all web links separated with comma
+urls = ['https://www.congress.gov/search?searchResultViewType=expanded&pageSort=latestAction:desc&q={%22source%22:%22legislation%22,%22type%22:%22bills%22,%22bill-status%22:%22law%22}&pageSize=25', 
+        'https://www.cftc.gov/LawRegulation/CFTCStaffLetters/letters.htm?title=&field_csl_letter_year_value=2023'
+       ]
+
+#list all simplified names
+names = ['Row id: 191',
+         'Row id: 198'
+        ]
+
+#list all folder name
+folders = ['191_screenshots', 
+           '198_screenshots'
+          ]
+
+# Define the interval between capturing each screenshot (in seconds)s.
+# Set 3600 sec equivalent to 1 hour.
+interval = 3
+
+print(r"""
+
+\n
+>>>>>>> main
  ______   ______     _                                         __      
 /\__  _\ /\  ___\  /' \                             __        /\ \__   
 \/_/\ \/ \ \ \__/ /\_, \        ____    ___   _ __ /\_\  _____\ \ ,_\  
@@ -114,7 +151,11 @@ print(rf"""
     \_\ \__\/\ \L\ \ \ \ \    /\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_ 
     /\_____\\ \____/  \ \_\   \/\____/\ \____\\ \_\  \ \_\ \ ,__/\ \__\
     \/_____/ \/___/    \/_/    \/___/  \/____/ \/_/   \/_/\ \ \/  \/__/
+<<<<<<< HEAD
                                  {decodedstring}       \ \_\       
+=======
+                                                           \ \_\       
+>>>>>>> main
                                                             \/_/       
 """)
 time.sleep(4)
@@ -127,7 +168,11 @@ def accept_cookies(page):
     except Exception as e:
         print(e)
 
+<<<<<<< HEAD
 # Create a log file(for error tracking purposes)
+=======
+# Create a log file
+>>>>>>> main
 log_file = open("log.txt", "a")        
 
 with sync_playwright() as playwright:
@@ -141,6 +186,7 @@ with sync_playwright() as playwright:
                 folder = folders[i]
                 os.makedirs(folder, exist_ok=True)
                 count = len(os.listdir(folder))
+<<<<<<< HEAD
                 #To include another extension in the filename, you can copy one of the "elif" statements added above the "else" statement 
                 if "BCB" in url:
                     filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-BCB.png"
@@ -157,11 +203,18 @@ with sync_playwright() as playwright:
                 else:
                     filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}.png"
 
+=======
+                filename = f"{date.today().strftime('%m-%d')}-3rd_i51-{count+1}.png"
+>>>>>>> main
                 page = browser.new_page()
                 print(f"Capturing screenshot of {names[i]}...")
                 page.goto(url)
                 page.wait_for_load_state()
+<<<<<<< HEAD
                 accept_cookies(page)
+=======
+                accept_cookies(page)  # accept cookies
+>>>>>>> main
                 time.sleep(8)
                 timestamp = datetime.now().strftime("Date: %m-%d-%Y || Time: %I:%M:%S %p")
                 consoleTimestamp = datetime.now().strftime("%I:%M:%S %p")
@@ -183,6 +236,7 @@ with sync_playwright() as playwright:
                     document.body.appendChild(div);
                 """)
                 page.screenshot(path=f"{folder}/{filename}", full_page=True)
+<<<<<<< HEAD
                 print(f"Screenshot of {names[i]} taken at {consoleTimestamp} has been saved.\n")
                 log_file.write(f"Screenshot of {names[i]} taken at {consoleTimestamp} has been saved.\n")
             time.sleep(interval)
@@ -191,6 +245,11 @@ with sync_playwright() as playwright:
             print(f"Timeout occurred while loading the page: {url}. Retrying...")
             log_file.write(f"Timeout occurred while loading the page: {url}. Retrying...\n")
             continue     
+=======
+                print(f"Done capturing screenshot of {names[i]} at {consoleTimestamp}.\n")
+                log_file.write(f"Done capturing screenshot of {names[i]} at {timestamp}.\n")
+            time.sleep(interval)
+>>>>>>> main
             
         except KeyboardInterrupt:
             break
