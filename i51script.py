@@ -21,9 +21,6 @@ kernel32.SetConsoleTitleW(decoded_string)
 subprocess.call('mode con: cols=80 lines=10', shell=True)
 os.system('color 09')
 
-#Please be aware that using the script is at your own risk and 
-# the creator of the script is not liable for any damages that may result from using it.
-
 #list all url in ORDER separated with comma same with simplified and folder names. 
 #BE CAREFUL WITH THE FORMAT TO AVOID ERRORS
 urls = ['https://www.congress.gov/search?searchResultViewType=expanded&pageSort=latestAction:desc&q={%22source%22:%22legislation%22,%22type%22:%22bills%22,%22bill-status%22:%22law%22}&pageSize=25', 
@@ -70,7 +67,6 @@ emp_id = 'i51'
 interval = 1800
 
 print(rf"""
-test
  ______   ______     _                                         __      
 /\__  _\ /\  ___\  /' \                             __        /\ \__   
 \/_/\ \/ \ \ \__/ /\_, \        ____    ___   _ __ /\_\  _____\ \ ,_\  
