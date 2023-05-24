@@ -1,14 +1,12 @@
 from playwright.sync_api import Playwright, sync_playwright
 from playwright._impl._api_types import TimeoutError
+from datetime import date
+from datetime import datetime
 import time
 import os
 import subprocess
 import ctypes
-from datetime import date
-from datetime import datetime
-from colorama import init, Fore, Style
 import binascii
-init()
 
 winTitle = b'49353120536372697074'
 decodeString = '446576656c6f7065642062793a204a50617363'
@@ -19,58 +17,26 @@ decodedstring = decoded_hex.decode()
 kernel32 = ctypes.windll.kernel32
 kernel32.SetConsoleTitleW(decoded_string)
 subprocess.call('mode con: cols=80 lines=10', shell=True)
-os.system('color 09')
-
-#Please be aware that using the script is at your own risk and 
-# the creator of the script is not liable for any damages that may result from using it.
 
 #list all url in ORDER separated with comma same with simplified and folder names. 
 #BE CAREFUL WITH THE FORMAT TO AVOID ERRORS
-urls = ['https://www.congress.gov/search?searchResultViewType=expanded&pageSort=latestAction:desc&q={%22source%22:%22legislation%22,%22type%22:%22bills%22,%22bill-status%22:%22law%22}&pageSize=25', 
-        'https://www.federalregister.gov/documents/current', 
-        'https://www.consumerfinance.gov/enforcement/actions/?title=&statuses=post-order-post-judgment&from_date=2023-01-01&to_date=2023-12-31',
-        'https://www.cftc.gov/LawRegulation/CFTCStaffLetters/letters.htm?title=&field_csl_letter_year_value=2023',
-        'http://dof.gob.mx',
-        'https://www.bcb.gov.br/estabilidadefinanceira/buscanormas?dataInicioBusca=25%2F03%2F2023&dataFimBusca=31%2F12%2F2023&tipoDocumento=Resolu%C3%A7%C3%A3o%20BCB',
-        'https://www.bcb.gov.br/estabilidadefinanceira/buscanormas?dataInicioBusca=25%2F03%2F2023&dataFimBusca=31%2F12%2F2023&tipoDocumento=Resolu%C3%A7%C3%A3o%20Conjunta',
-        'http://www4.planalto.gov.br/legislacao/portal-legis/resenha-diaria/2023-resenha-diaria/marco-resenha-diaria',
-        'https://www.bcb.gov.br/estabilidadefinanceira/buscanormas?dataInicioBusca=01%2F01%2F2023&dataFimBusca=31%2F12%2F2023&tipoDocumento=Resolu%C3%A7%C3%A3o%20CMN'
+urls = [''
        ]
 
 #Simplified name (will reflect to the screenshot timestamp)
-names = ['Row id: 191',
-         'Row id: 192',
-         'Row id: 195',
-         'Row id: 198',
-         'Row id: 890',
-         'Row id: 951 - BCB',
-         'Row id: 951 - Conjunta',
-         'Row id: 960',
-         'Row id: 961 - CMN'
+names = [''
         ]
 
 #Folder name
-folders = ['191_screenshots', 
-           '192_screenshots', 
-           '195_screenshots',
-           '198_screenshot',
-           '890_screenshot',
-           '951-bcb_screenshot',
-           '951-conjunta_screenshot',
-           '960_screenshot',
-           '961_screenshot'
+folders = [''
           ]
 
-#To specify the output file name of the screenshot
+#specify your shift and emp_id for the output file name of the screenshot
 shift = '3rd'
 emp_id = 'i51'        
-
-# Define the interval between capturing each screenshot (in seconds)s.
-# Default interval is 1800 for 30mins 2 cycles per hour
-interval = 1800
+interval = 360 # Default interval is 1800 for 30mins 2 cycles per hour
 
 print(rf"""
-
  ______   ______     _                                         __      
 /\__  _\ /\  ___\  /' \                             __        /\ \__   
 \/_/\ \/ \ \ \__/ /\_, \        ____    ___   _ __ /\_\  _____\ \ ,_\  
@@ -81,20 +47,50 @@ print(rf"""
                                  {decodedstring}       \ \_\       
                                                             \/_/       
 """)
-time.sleep(4)
+time.sleep(3)
 
-def accept_cookies(page):
-    try:
-        accept_button = page.locator('.btn-accept')
-        if accept_button.is_visible():
-            accept_button.click()
+#custom step for each row id before capturing screenshot
+def custom_step(page):
+    try: 
+        tap_year = page.locator('a[alt="year/2023"]') #219 fix
+        #Row id 213 search 100-04
+        searchFilter = page.locator('input[data-drupal-selector="edit-combine"]')
+        searchBtn = page.locator('input[data-drupal-selector="edit-submit-dlv-transmittals"]')
+
+        # Row id 202 input > search > click file date function
+        search_input = page.locator('input[data-drupal-selector="edit-body-value"]')
+        search_button = page.locator('input[data-drupal-selector="edit-submit-regulations-section"]')
+        file_date_button = page.locator('a:has-text("File Date")')  
+
+        cvm_locator = page.locator('input#resolucoes.toggleNext[type="checkbox"]')
+        showallButton = page.query_selector('.govuk-accordion__show-all') #Row id 0019 Show all button auto click
+
+        if tap_year.is_visible():
+             tap_year.click()
+
+        if searchFilter.is_visible() and searchBtn.is_visible():
+            searchFilter.fill("100-04")
+            searchBtn.click()     
+
+        if showallButton is not None and button.is_visible():
+           showallButton.click()
+
+        if search_input.is_visible() and search_button.is_visible() and file_date_button.is_visible():
+             search_input.fill("HB-1-3555")
+             search_button.click()
+             time.sleep(2)
+             file_date_button.click()
+
+        if cvm_locator.is_visible():
+             cvm_locator.click()    
+
     except Exception as e:
-        print(e)
+        print(e)        
 
 log_file = open("log.txt", "a")        
 
 with sync_playwright() as playwright:
-    browser = playwright.firefox.launch(headless=True)
+    browser = playwright.firefox.launch_persistent_context(headless=True, user_data_dir='DO NOT DELETE', accept_downloads=False) #cache files for accept cookies
 
     while True:
         try:
@@ -103,21 +99,56 @@ with sync_playwright() as playwright:
                 os.makedirs(folder, exist_ok=True)
                 count = len(os.listdir(folder))
 
-                #To include another extension in the filename, you can copy one of the "elif" statements added above the "else" statement 
-                if "BCB" in url:
-                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-BCB.png"
+                #To include another extension in the filename, you can copy one of the "elif" statements 
+                # added above the "else" statement
+                #FILE NAME EXTENSION
+                
+                #0001 start
+                if "gov.uk/new/uksi" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-SI.png"  
+                elif "guidance-and-regulation?" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Guidance and regulation.png"      
+                elif "policy-papers-and-consultations" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Policy papers and consultations.png"       
+                #0001 end
+
+                #0007 start
+                elif "whatsnew#tab-content-1" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-CRR.png"   
+                elif "whatsnew#tab-content-3" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Solvency II.png"            
+                #0007 end
+
+                #0019 start
+                elif "vat-accounting" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-VAT Accounting.png"  
+                elif "vat-annual-accounting-system" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-VAT Annual Accounting Scheme.png"      
+                elif "vat-assessments-and-error-correction" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-VAT Assessments and Error Correction.png"           
+                elif "vat-bad-debt-relief" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-vat-bad-debt-relief.png"
+                #0019 end
+
+                #0219 start
+                elif "opinion-letters" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-OLS.png"   
+                elif "field-assistance-bulletins" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-FAB.png"            
+                #0219 end
+
+                #951
+                elif "318" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Content.png"
                 elif "Conjunta" in url:
                     filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Conjunta.png"
-                elif "litreleases" in url:
-                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-LR.png"
+                elif "BCB" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-BCB.png"    
+                #951
+
+                #1003
                 elif "de-recursos-de-terceiros" in url:
-                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Administração-de-Recursos.png"       
-                elif "opinions" in url:
-                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Comm Opinion.png"
-                elif "friactions" in url:
-                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-AA.png"  
-                elif "admin" in url:
-                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-AP.png"    
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Administração-de-Recursos.png"     
                 elif "codigo-de-etica" in url:
                     filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Código-de-Ética.png"
                 elif "atividades-conveniadas" in url:
@@ -129,7 +160,17 @@ with sync_playwright() as playwright:
                 elif "negociacao-de-instrumentos-financeiros" in url:
                     filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Negociação-de-Instrumentos-Financeiros.png" 
                 elif "ofertas-publicas" in url:
-                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Ofertas-Públicas.png"                                                       
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-Ofertas-Públicas.png"
+                #1003
+
+                #0221 start
+                elif "M26_4.asp" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-m26-4.png"   
+                elif "pam26_7.asp" in url:
+                    filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}-pamphlet26-7.png"            
+                #0221 end
+                
+                #Default file naming                                                            
                 else:
                     filename = f"{date.today().strftime('%m-%d')}-{shift}_{emp_id}-{count+1}.png"
 
@@ -140,15 +181,15 @@ with sync_playwright() as playwright:
                     try:
                         page.goto(url)
                         page.wait_for_load_state()
-                        accept_cookies(page)
-                        time.sleep(8)
+                        custom_step(page)
+                        time.sleep(10)
                         timestamp = datetime.now().strftime("Date: %m-%d-%Y || Time: %I:%M:%S %p")
                         consoleTimestamp = datetime.now().strftime("%I:%M:%S %p")
                         page.evaluate(f"""
                             const timestamp = new Date().toLocaleString('en-US', {{ hour12: true }});
                             const url = document.URL;
                             const div = document.createElement('div');
-                            div.style.position = 'fixed';
+                            div.style.position = 'absolute';
                             div.style.top = '0';
                             div.style.left = '0';
                             div.style.backgroundColor = 'blue';
@@ -158,7 +199,7 @@ with sync_playwright() as playwright:
                             div.style.fontWeight = 'bold';
                             div.style.height = 'auto';
                             div.style.zIndex = '9999999';
-                            div.textContent = `{timestamp} || {names[i]}`;
+                            div.textContent = `{timestamp} || {names[i]} || {url}`;
                             document.body.appendChild(div);
                         """)
                         page.screenshot(path=f"{folder}/{filename}", full_page=True)
