@@ -34,7 +34,7 @@ folders = [''
 #specify your shift and emp_id for the output file name of the screenshot
 shift = '3rd'
 emp_id = 'i51'        
-interval = 360 # Default interval is 1800 for 30mins 2 cycles per hour
+interval = 1800 # Default interval is 1800 for 30mins 2 cycles per hour
 
 print(rf"""
  ______   ______     _                                         __      
