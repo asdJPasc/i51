@@ -33,7 +33,7 @@ Furthermore, to avoid the blocking of any critical elements in the captured scre
 
 [ Changelog ]
 
-Version 1.1 - 2023-04-20
+Version 1.1 - 04-20-2023
 
 New features:
 
@@ -45,6 +45,13 @@ New features:
 Added a log.txt file to track issues that arise while the script is running.
 
 4. Implemented a keyboard shortcut "ctrl + c" to stop the script and save the log.txt file properly.
+
+Version 1.2 - 05-24-2023
+
+1. Removed the accept_button function and implemented a headless browser set to False, allowing manual acceptance of cookies initially. The accepted cookies are then saved to the "Do not delete" folder as cache, instead of using hard-coded functions.
+
+2. Added a custom step function to handle websites that require filtering before capturing screenshots.
+
 
 [ Bug fixes ]
 
